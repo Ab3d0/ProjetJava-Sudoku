@@ -1,6 +1,6 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
+
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;
@@ -8,11 +8,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 
 import java.awt.Cursor;
-import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.FileWriter;
