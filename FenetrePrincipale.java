@@ -55,10 +55,7 @@ public class FenetrePrincipale extends JFrame {
                 }
             }
         });
-
-        // Initialiser le bouton verifierButton avant d'ajouter l'action listener
-      
-     
+          
         sauvegarderButton = Button.createButton("Sauvegarder", panel, 700, 450);
         sauvegarderButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -66,8 +63,6 @@ public class FenetrePrincipale extends JFrame {
             }
         });
         sauvegarderButton.setVisible(false);
-    
-        // Bouton pour charger la grille
       
 
         tableauSudoku = new TableauSudoku();
@@ -98,9 +93,10 @@ public class FenetrePrincipale extends JFrame {
     }
 
     private void sauvegarderGrille() {
-        tableauSudoku.sauvegarderGrilleVersFichier();
+        SauvegarderGrilleVersFichier.sauvegarderGrilleVersFichier(tableauSudoku);
         // Ajoutez ici le code pour informer l'utilisateur que la sauvegarde est terminée, si nécessaire
     }
+    
 
   
 }

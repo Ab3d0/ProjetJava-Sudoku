@@ -254,36 +254,6 @@ public class TableauSudoku extends JPanel {
             }
         }
 
-
-
-    public boolean CreerPartieSudoku(){
-        sudoku.nettoyerSudoku();
-        for(int i = 0; i < listeTxt.length; i++){
-            for(int j = 0; j < listeTxt[0].length; j++){
-                if(!(listeTxt[i][j].getText().isEmpty())){
-
-                    int num = Integer.valueOf(listeTxt[i][j].getText());
-                    if(sudoku.validerColonne(j, num)&& sudoku.validerLigne(i, num) && sudoku.validerSousGrille(i, j , num)){
-                        sudoku.getSudoku()[i][j] = num;
-                        listeTxt[i][j].setBackground(txtBackground4);
-                        listeTxt[i][j].setForeground(txtForeground4);
-                        listeTxt[i][j].setBorder(BorderFactory.createLineBorder(panelBackground , 1));
-                        listeTxtGenerés.add(listeTxt[i][j]);
-                    }else {
-                        listeTxtGenerés.clear();
-                        JOptionPane.showMessageDialog(null, "Sudoku Incorrecte", "Error",JOptionPane.ERROR_MESSAGE);
-                        return false;
-                    }
-                } else {
-                    listeTxt[i][j].setBackground(txtBackground1);
-                    listeTxt[i][j].setForeground(txtForeground1);
-                    listeTxt[i][j].setBorder(BorderFactory.createLineBorder(panelBackground , 1));
-                }
-            }
-        }
-        return true;
-    }
-
     public void NettoyerTxt(){
         for(int i= 0; i < listeTxt.length; i++){
             for(int j = 0; j < listeTxt[0].length; j++){
@@ -298,36 +268,20 @@ public class TableauSudoku extends JPanel {
 
     }
 
-    
-    
-
-    public void sauvegarderGrilleVersFichier() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Choisir un emplacement de sauvegarde");
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Fichiers de grille Sudoku (*.sudoku)", "sudoku"));
-        int userSelection = fileChooser.showSaveDialog(this);
-
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-            try (FileWriter writer = new FileWriter(fileToSave)) {
-                for (int i = 0; i < listeTxt.length; i++) {
-                    StringBuilder sb = new StringBuilder();
-                    for (int j = 0; j < listeTxt[0].length; j++) {
-                        String text = listeTxt[i][j].getText();
-                        if (!text.isEmpty()) {
-                            sb.append(text);
-                        } else {
-                            sb.append("0");
-                        }
-                    }
-                    writer.write(sb.toString() + System.lineSeparator());
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public boolean CreerPartieSudoku() {
+        return CreerPartieSudoku.creerPartie(this);
     }
     
+    
+    public Sudoku getSudoku() {
+        return sudoku;
+    }
+    
+    public ArrayList<JTextField> getListeTxtGeneres() {
+        return listeTxtGenerés;
+    }
+    
+
     public JTextField[][] getListeTxt() {
         return listeTxt;
     }
