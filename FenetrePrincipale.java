@@ -1,32 +1,23 @@
-import java.awt.*;
 import javax.swing.*;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-/**
- * FenetrePrincipale
- */
-
-public class FenetrePrincipale {
+public class FenetrePrincipale extends JFrame {
 
     private TableauSudoku tableauSudoku;
     private boolean estadoCrear = false;
-    private Bouton verifierButton;
-    private Bouton resoudreButton;
-    private Bouton sauvegarderButton;
-    private Bouton chargerButton;
+    private JButton sauvegarderButton; // Déclaration en tant que membre de classe
 
-    public FenetrePrincipale(){
-        JFrame fenetre = new JFrame();
-        fenetre.setTitle("Sudoku");
-        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(1200, 800); // Taille de la fenêtre
-        fenetre.setLocationRelativeTo(null); // Centrer la fenêtre
+    public FenetrePrincipale() {
+        setTitle("Sudoku");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1200, 800); // Taille de la fenêtre
+        setLocationRelativeTo(null); // Centrer la fenêtre
 
-        /* Panneau pour dessiner le contenu */
+        // Panneau pour dessiner le contenu
         JPanel panel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -37,7 +28,7 @@ public class FenetrePrincipale {
             }
         };
         panel.setLayout(null); // Désactiver la disposition automatique
-        fenetre.setContentPane(panel);
+        setContentPane(panel);
 
         // Définir le texte "Sudoku" en gras en haut à gauche
         JLabel label = new JLabel("Sudoku");
@@ -46,83 +37,38 @@ public class FenetrePrincipale {
         label.setBounds(10, 10, 200, 30); // Position et taille du label
         panel.add(label);
 
-        Bouton nouveauButton = new Bouton("Nouvelle Partie", panel, 700, 100);
-        nouveauButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Niveau n = new Niveau();        
-            }
-        });
-
-
-
-
-        Bouton effacerButton = new Bouton("Effacer", panel, 700, 150);
-        effacerButton.addActionListener(e -> {
-            // Lorsque le bouton "Effacer" est cliqué, appeler la méthode BoutonEffacer sur l'instance de TableauSudoku
-            getTableauSudoku().BoutonEffacer();
-        });
-
-        Bouton verifierButton = new Bouton("Vérifier", panel, 700, 250);
-        verifierButton.addActionListener(e -> {
-            // Appeler la méthode VerifierBouton sur l'instance de TableauSudoku lorsque le bouton "Vérifier" est cliqué
-            getTableauSudoku().VerifierBouton();
-        });
-
-        Bouton resoudreButton = new Bouton("Résoudre", panel, 700, 300);
-        resoudreButton.addActionListener(e -> {
-            // Lorsque le bouton "Effacer" est cliqué, appeler la méthode BoutonEffacer sur l'instance de TableauSudoku
-            getTableauSudoku().Boutonrésoudre();
-        });
-
-        Bouton sauvegarderButton = new Bouton("Sauvegarder", panel, 700, 450);
-        sauvegarderButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                sauvegarderGrille();
-            }
-        });
-        sauvegarderButton.setVisible(false);
-
-        Bouton chargerButton = new Bouton("Charger", panel, 700, 500);
-        chargerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                chargerGrille();
-            }
-        });
-        chargerButton.setVisible(false);
-
-        Bouton creerButton = new Bouton("Créer", panel, 700, 200);
+        JButton creerButton = Button.createButton("Créer", panel, 700, 200);
         creerButton.addActionListener(e -> {
             if (estadoCrear) {
                 // Si estadoCrear est true, alors masquer les boutons
-                nouveauButton.setVisible(false);
-                effacerButton.setVisible(false);
-                verifierButton.setVisible(false);
-                resoudreButton.setVisible(false);
+               
                 sauvegarderButton.setVisible(true);
-                chargerButton.setVisible(true);
                 estadoCrear = false;
                 tableauSudoku.NettoyerTxt();
                 creerButton.setText("Commencer");
                 
             } else {
-                
                 if (tableauSudoku.CreerPartieSudoku()) {
-                    nouveauButton.setVisible(true);
-                    effacerButton.setVisible(true);
-                    resoudreButton.setVisible(true);
-                    verifierButton.setVisible(true); /* Crash ici */
                     sauvegarderButton.setVisible(false);
-                    chargerButton.setVisible(false);
                     estadoCrear = true;
                     creerButton.setText("Créer");
                 }
             }
         });
 
-        
-
-
+        // Initialiser le bouton verifierButton avant d'ajouter l'action listener
+      
+     
+        sauvegarderButton = Button.createButton("Sauvegarder", panel, 700, 450);
+        sauvegarderButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                sauvegarderGrille();
+            }
+        });
+        sauvegarderButton.setVisible(false);
+    
+        // Bouton pour charger la grille
+      
 
         tableauSudoku = new TableauSudoku();
         tableauSudoku.setHauteurTxt(36);
@@ -143,20 +89,8 @@ public class FenetrePrincipale {
         panel.add(tableauSudoku);
         tableauSudoku.setBounds(20, 60, 610, 610); // Position et taille du TableroSudoku // Changer la dimension du panneau
         tableauSudoku.setVisible(true);
-
-
-
-
-
-
-
-
-
-
-
-        fenetre.setVisible(true);
- 
- 
+    
+        setVisible(true); // Rendre la fenêtre visible
     }
 
     public TableauSudoku getTableauSudoku() {
@@ -168,12 +102,5 @@ public class FenetrePrincipale {
         // Ajoutez ici le code pour informer l'utilisateur que la sauvegarde est terminée, si nécessaire
     }
 
-    // Méthode pour charger la grille
-    private void chargerGrille() {
-        tableauSudoku.chargerGrilleDepuisFichier();
-        // Ajoutez ici le code pour informer l'utilisateur que le chargement est terminé, si nécessaire
-    }
-
-
-
+  
 }

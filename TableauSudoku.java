@@ -22,6 +22,7 @@ import java.io.IOException;
 
 
 
+
 public class TableauSudoku extends JPanel {
     
     private JTextField[][] listeTxt;
@@ -258,24 +259,6 @@ public class TableauSudoku extends JPanel {
             }
         }
 
-    
-    public void genererSudoku(int nivel){
-        NettoyerTxt();
-        sudoku.genererSudoku(nivel);
-        int[][] sudokuGenarado = sudoku.getSudoku();
-        for(int i = 0; i < 10; i++ ){
-            for(int j = 0; j  < listeTxt[0].length ; j++){
-                if(sudokuGenarado[i][j] != 0){
-                    listeTxt[i][j].setText(String.valueOf(sudokuGenarado[i][j]));
-                    listeTxt[i][j].setBackground(txtBackground4);
-                    listeTxt[i][j].setForeground(txtForeground4);
-                    listeTxtGenerés.add(listeTxt[i][j]);
-
-                }
-            }
-        }
-    }
-
 
 
     public boolean CreerPartieSudoku(){
@@ -320,67 +303,33 @@ public class TableauSudoku extends JPanel {
 
     }
 
-    public void BoutonEffacer(){
-        for(int i = 0; i < listeTxt.length; i++){
-            for(int j = 0; j < listeTxt[0].length; j++){
+    
+    
 
-                boolean b = false;
-                for(JTextField txt :listeTxtGenerés){
-                    if(listeTxt[i][j] == txt){
-                        b = true;
-                        break;
+    public void sauvegarderGrilleVersFichier() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Choisir un emplacement de sauvegarde");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Fichiers de grille Sudoku (*.sudoku)", "sudoku"));
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            try (FileWriter writer = new FileWriter(fileToSave)) {
+                for (int i = 0; i < listeTxt.length; i++) {
+                    StringBuilder sb = new StringBuilder();
+                    for (int j = 0; j < listeTxt[0].length; j++) {
+                        String text = listeTxt[i][j].getText();
+                        if (!text.isEmpty()) {
+                            sb.append(text);
+                        } else {
+                            sb.append("0");
+                        }
                     }
+                    writer.write(sb.toString() + System.lineSeparator());
                 }
-                if(!b){
-                    listeTxt[i][j].setText("");
-                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }
-    }
-
-    public void VerifierBouton(){
-        int sudo[][] = new int [9][9];
-        for(int i = 0; i < listeTxt.length; i++){
-            for(int j = 0; j < listeTxt[0].length; j++){
-                if(listeTxt[i][j].getText().isEmpty()){
-                    JOptionPane.showMessageDialog(null, "Sudoku imcomplet", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }else {
-                    sudo[i][j] = Integer.parseInt(listeTxt[i][j].getText());
-                }
-            }
-        }
-        sudoku.setSudoku(sudo);
-        if(sudoku.verifierSudoku()){
-            JOptionPane.showMessageDialog(null, "Sudoku correcte", "Sudoku", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Pas de solution", "Sudoku", JOptionPane.INFORMATION_MESSAGE);
-
-        }
-    }
-
-    public void Boutonrésoudre(){
-        sudoku.nettoyerSudoku();
-        for(int i =0; i < listeTxt.length; i++){
-            for(int j = 0 ; j < listeTxt[0].length; j++){
-                for(JTextField txt : listeTxtGenerés){
-                    if(txt == listeTxt[i][j]){
-                        sudoku.getSudoku()[i][j] = Integer.parseInt(txt.getText());
-
-                    }
-                }
-            }
-        }
-        if(sudoku.résoudreSudoku()){
-            for(int i = 0; i < listeTxt.length; i++){
-                for(int j = 0; j < listeTxt[0].length; j++){
-                    listeTxt[i][j].setText(String.valueOf(sudoku.getSudoku()[i][j]));
-
-                }
-            }
-        }else{
-            JOptionPane.showMessageDialog(null, "Pas de solution", "Error", JOptionPane.ERROR_MESSAGE);
-            
         }
     }
     
@@ -489,65 +438,4 @@ public class TableauSudoku extends JPanel {
         this.txtForeground4 = txtForeground4;
         
     }
-
-    public void sauvegarderGrilleVersFichier() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Choisir un emplacement de sauvegarde");
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Fichiers de grille Sudoku (*.sudoku)", "sudoku"));
-        int userSelection = fileChooser.showSaveDialog(this);
-
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-            try (FileWriter writer = new FileWriter(fileToSave)) {
-                for (int i = 0; i < listeTxt.length; i++) {
-                    StringBuilder sb = new StringBuilder();
-                    for (int j = 0; j < listeTxt[0].length; j++) {
-                        String text = listeTxt[i][j].getText();
-                        if (!text.isEmpty()) {
-                            sb.append(text);
-                        } else {
-                            sb.append("0");
-                        }
-                    }
-                    writer.write(sb.toString() + System.lineSeparator());
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    
-    public void chargerGrilleDepuisFichier() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Choisir un fichier de grille à charger");
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Fichiers de grille Sudoku (*.sudoku)", "sudoku"));
-        int userSelection = fileChooser.showOpenDialog(this);
-    
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToLoad = fileChooser.getSelectedFile();
-            try (BufferedReader br = new BufferedReader(new FileReader(fileToLoad))) {
-                String line;
-                int row = 0;
-                while ((line = br.readLine()) != null) {
-                    for (int col = 0; col < line.length(); col++) {
-                        char c = line.charAt(col);
-                        if (Character.isDigit(c)) {
-                            // Vérifiez si le caractère est '0'
-                            if (c == '0') {
-                                // Si c'est le cas, affichez une chaîne vide dans le champ de texte
-                                listeTxt[row][col].setText("");
-                            } else {
-                                // Sinon, affichez le chiffre normal
-                                listeTxt[row][col].setText(Character.toString(c));
-                            }
-                        }
-                    }
-                    row++;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 }

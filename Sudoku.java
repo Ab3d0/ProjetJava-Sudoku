@@ -159,4 +159,3 @@ public class Sudoku {
         this.sudoku = sudoku;
     }
 }
-
