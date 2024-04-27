@@ -255,20 +255,11 @@ public class TableauSudoku extends JPanel {
         }
 
     
-
-    public void NettoyerTxt(){
-        for(int i= 0; i < listeTxt.length; i++){
-            for(int j = 0; j < listeTxt[0].length; j++){
-                listeTxt[i][j].setText("");
-                listeTxt[i][j].setBackground(txtBackground1);
-                listeTxt[i][j].setForeground(txtForeground1);
-                listeTxt[i][j].setBorder(BorderFactory.createLineBorder(panelBackground, 1));
-
-            }
+        public void nettoyerTxt() {
+            NettoyerTxt nettoyeur = new NettoyerTxt(listeTxt, listeTxtGenerés, txtBackground1, txtForeground1, panelBackground);
+            nettoyeur.NettoyerTxt();
         }
-        listeTxtGenerés.clear();
-
-    }
+   
 
     public boolean CreerPartieSudoku() {
         return CreerPartieSudoku.creerPartie(this);
