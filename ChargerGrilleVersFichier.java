@@ -10,7 +10,7 @@ public class ChargerGrilleVersFichier {
     public static void chargerGrilleDepuisFichier(TableauSudoku tableauSudoku) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Choisir un fichier de grille à charger");
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Fichiers de grille Sudoku (*.sudoku)", "sudoku"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Fichiers de grille Sudoku (*.gri)", "gri"));
         int userSelection = fileChooser.showOpenDialog(null);
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {

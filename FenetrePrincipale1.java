@@ -61,8 +61,9 @@ public class FenetrePrincipale1 extends JFrame {
                 creerButton.setText("Commencer");
                 
             } else {
+                System.out.println(tableauSudoku.CreerPartieSudoku());
                 if (tableauSudoku.CreerPartieSudoku()) {
-                    sauvegarderButton.setVisible(false);
+                    sauvegarderButton.setVisible(true);
                     estadoCrear = true;
                     creerButton.setText("Créer");
                 }
