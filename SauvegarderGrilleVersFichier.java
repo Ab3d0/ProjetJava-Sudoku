@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JTextField;
-
+import java.io.OutputStream;
+import java.io.FileOutputStream;
+import java.io.DataOutputStream;
 
 public class SauvegarderGrilleVersFichier {
     public static void sauvegarderGrilleVersFichier(TableauSudoku tableauSudoku) {
@@ -15,16 +17,17 @@ public class SauvegarderGrilleVersFichier {
         int userSelection = fileChooser.showSaveDialog(null);
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-            try (FileWriter writer = new FileWriter(fileToSave)) {
-                JTextField[][] listeTxt = tableauSudoku.getListeTxt();
-                boolean debut = false;
-                for (int i = 0; i < listeTxt.length; i++) {
-                    StringBuilder sb = new StringBuilder();
-                    for (int j = 0; j < listeTxt[0].length; j++) {
-                        String text = listeTxt[i][j].getText();
-                        System.out.println(text);
-                        if(debut == false){
+	    try {
+		FileOutputStream file = new FileOutputStream(fileChooser.getSelectedFile());
+		DataOutputStream fichier = new DataOutputStream(file);
+
+		JTextField[][] listeTxt = tableauSudoku.getListeTxt();
+		boolean debut = false;
+		for(int ligne = 0; ligne < 9; ligne++){
+		    StringBuilder sb = new StringBuilder();
+		    for(int colonne = 0; colonne < 9; colonne++){
+			String text = listeTxt[ligne][colonne].getText();
+			if(debut == false){
                             if(text.isEmpty()){
                                 sb.append(" ");
                             } else {
@@ -38,17 +41,22 @@ public class SauvegarderGrilleVersFichier {
                                 sb.append(text);
                             }
                         }
+		    }
+		    String numChaine = sb.toString();
+		    int n = Integer.parseInt(numChaine);
+		    fichier.writeInt(n);
+		}
 
 
-                        
-                    }
-                    debut = false;
-                    writer.write(sb.toString() + System.lineSeparator());
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+		
+		try {
+		    file.close();
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+	    } catch (IOException e) {
+		e.printStackTrace();
+	    }
         }
     }
 }
