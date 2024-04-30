@@ -11,7 +11,6 @@ public class FenetrePrincipale1 extends JFrame {
 
     private TableauSudoku tableauSudoku;
     private boolean estadoCrear = false;
-    private JButton sauvegarderButton; 
     private JTextField[][] listeTxt;
     private ArrayList<JTextField> listeTxtGenerés;
     private Color txtBackground1;
@@ -50,7 +49,6 @@ public class FenetrePrincipale1 extends JFrame {
             if (estadoCrear) {
                 // Si estadoCrear est true, alors masquer les boutons
                
-                sauvegarderButton.setVisible(true);
                 estadoCrear = false;
                 // Créez une instance de NettoyerTxt en lui passant les paramètres nécessaires
                 NettoyerTxt nettoyeurTxt = new NettoyerTxt(listeTxt, listeTxtGenerés, txtBackground1, txtForeground1, panelBackground);
@@ -61,22 +59,13 @@ public class FenetrePrincipale1 extends JFrame {
                 creerButton.setText("Commencer");
                 
             } else {
-                System.out.println(tableauSudoku.CreerPartieSudoku());
                 if (tableauSudoku.CreerPartieSudoku()) {
-                    sauvegarderButton.setVisible(true);
                     estadoCrear = true;
                     creerButton.setText("Créer");
+                    sauvegarderGrille();
                 }
             }
         });
-          
-        sauvegarderButton = Button.createButton("Sauvegarder", panel, 700, 450);
-        sauvegarderButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                sauvegarderGrille();
-            }
-        });
-        sauvegarderButton.setVisible(false);
       
 
         tableauSudoku = new TableauSudoku();

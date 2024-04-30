@@ -22,28 +22,20 @@ public class SauvegarderGrilleVersFichier {
 		DataOutputStream fichier = new DataOutputStream(file);
 
 		JTextField[][] listeTxt = tableauSudoku.getListeTxt();
-		boolean debut = false;
 		for(int ligne = 0; ligne < 9; ligne++){
 		    StringBuilder sb = new StringBuilder();
 		    for(int colonne = 0; colonne < 9; colonne++){
-			String text = listeTxt[ligne][colonne].getText();
-			if(debut == false){
-                            if(text.isEmpty()){
-                                sb.append(" ");
-                            } else {
-                                sb.append(text);
-                                debut = true;
-                            }
-                        } else {
-                            if (text.isEmpty()) {
-                                sb.append("0");
-                            } else {
-                                sb.append(text);
-                            }
-                        }
+				String text = listeTxt[ligne][colonne].getText();
+                if(text.isEmpty()){
+                	sb.append("0");
+                } else {
+                    sb.append(text);
+                }
 		    }
 		    String numChaine = sb.toString();
+			System.out.println(numChaine);
 		    int n = Integer.parseInt(numChaine);
+			System.out.println(n);
 		    fichier.writeInt(n);
 		}
 
