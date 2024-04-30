@@ -8,4 +8,5 @@ public class Jouer {
         FenetreJeux fenetre = new FenetreJeux(); // Création de votre fenêtre principale
         fenetre.setVisible(true); // Rendre la fenêtre visible
     }
+
 }

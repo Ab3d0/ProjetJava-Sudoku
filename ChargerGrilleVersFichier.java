@@ -51,9 +51,7 @@ public class ChargerGrilleVersFichier {
 		    }
 		}
 
-		if(tableauSudoku.CreerPartieSudoku()){
-			return;
-		}
+		tableauSudoku.CreerPartieSudoku();
 
 		
 
