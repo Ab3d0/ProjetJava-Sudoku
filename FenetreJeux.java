@@ -14,6 +14,8 @@ public class FenetreJeux extends JFrame {
     private boolean estadoCrear = false;
     private JButton chargerButton;
     private JButton resoudreButton;
+    private JLabel tempsLabel;
+
 
 
     public FenetreJeux() {
@@ -75,9 +77,11 @@ public class FenetreJeux extends JFrame {
        
         resoudreButton = Button.createButton("Résoudre", panel, 700, 300);
         resoudreButton.addActionListener(e -> {
-            // Lorsque le bouton "Effacer" est cliqué, appeler la méthode BoutonEffacer sur l'instance de TableauSudoku
+            // Lorsque le bouton "Résoudre" est cliqué, appeler la méthode BoutonEffacer sur l'instance de TableauSudoku
             ResoudreBouton resoudreButton = new ResoudreBouton(tableauSudoku.getListeTxt(), tableauSudoku.getListeTxtGeneres(), tableauSudoku.getSudoku());
             resoudreButton.boutonrésoudre();
+
+            tempsLabel.setText("Temps de résolution : " + resoudreButton.getTempsRésolution() + " millisecondes");
         });
 
     
@@ -104,6 +108,12 @@ public class FenetreJeux extends JFrame {
         panel.add(tableauSudoku);
         tableauSudoku.setBounds(20, 60, 610, 610); // Position et taille du TableroSudoku // Changer la dimension du panneau
         tableauSudoku.setVisible(true);
+
+        tempsLabel = new JLabel("Temps de résolution :");
+        tempsLabel.setForeground(Color.WHITE);
+        tempsLabel.setBounds(700,350,400,30);
+        panel.add(tempsLabel);
+
     
         setVisible(true); // Rendre la fenêtre visible
     }
