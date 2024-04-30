@@ -27,7 +27,6 @@ public class ChargerGrilleVersFichier {
 		FileInputStream file = new FileInputStream(fileChooser.getSelectedFile());
 		DataInputStream fichier = new DataInputStream(file);
 		
-	        String chaine; 
 		JTextField[][] listeTxt = tableauSudoku.getListeTxt();
 		
 		for(int ligne = 0; ligne < 9; ligne++){
@@ -50,8 +49,10 @@ public class ChargerGrilleVersFichier {
 			    listeTxt[ligne][i].setText(chiffre);
 			}
 		    }
+		}
 
-		    
+		if(tableauSudoku.CreerPartieSudoku()){
+			return;
 		}
 
 		
