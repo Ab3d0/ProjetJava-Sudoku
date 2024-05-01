@@ -6,7 +6,7 @@ CLASSFILES = $(JAVASRC:.java=.class)
 
 
 PREMIER_PROG_FILES = Creation.java FenetrePrincipale1.java Button.java NettoyerTxt.java TableauSudoku.java CreerPartieSudoku.java SauvegarderGrilleVersFichier.java Sudoku.java creerAction.java
-DEUXIEME_PROG_FILES = Jouer.java FenetreJeux.java TableauSudoku.java Button.java Niveau.java EffacerBouton.java VerifierBouton.java ResoudreBouton.java ChargerGrilleVersFichier.java GenererSudoku.java Sudoku.java CreerPartieSudoku.java
+DEUXIEME_PROG_FILES = Jouer.java FenetreJeux.java TableauSudoku.java Button.java Niveau.java EffacerBouton.java VerifierBouton.java ResoudreBouton.java ChargerGrilleVersFichier.java GenererSudoku.java Sudoku.java CreerPartieSudoku.java NouveauAction.java EffacerAction.java ChargerAction.java ResoudreAction.java VerifierAction.java
 
 
 PremierProg_compil :  $(PREMIER_PROG_FILES)

@@ -45,44 +45,26 @@ public class FenetreJeux extends JFrame {
         panel.add(label);
 
         JButton nouveauButton = Button.createButton("Nouvelle Partie", panel, 700, 100);
-        nouveauButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                Niveau niveau = new Niveau(tableauSudoku);
-               niveau.afficherFenetreNiveau();
-            }
-        });
+        nouveauButton.addMouseListener(new NouveauAction(this));
+
 
         JButton effacerButton = Button.createButton("Effacer", panel, 700, 150);
-        effacerButton.addActionListener(e -> {
-            // Lorsque le bouton "Effacer" est cliqué, appeler la méthode BoutonEffacer sur l'instance de TableauSudoku
-            EffacerBouton éffacerButton = new EffacerBouton(tableauSudoku.getListeTxt(), tableauSudoku.getListeTxtGeneres());
-            éffacerButton.BoutonEffacer();
-        });
+        effacerButton.addActionListener(new EffacerAction(this));
+
+
+
           // Bouton pour charger la grille
           chargerButton = Button.createButton("Charger", panel, 700, 200);
-          chargerButton.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-                  chargerGrille();
-              }
-          });
+          chargerButton.addActionListener(new ChargerAction(this));
+
 
         // Initialiser le bouton verifierButton avant d'ajouter l'action listen
         JButton verifierButton = Button.createButton("Vérifier", panel, 700, 250);
-        verifierButton.addActionListener(e -> {
-            // Appeler la méthode VerifierBouton sur l'instance de TableauSudoku lorsque le bouton "Vérifier" est cliqué
-            VerifierBouton verifierBouton = new VerifierBouton(tableauSudoku.getListeTxt(), tableauSudoku.getListeTxtGeneres(), tableauSudoku.getSudoku());
-            verifierBouton.verifierBouton();
-        });
+        verifierButton.addActionListener(new VerifierAction(this));
        
         resoudreButton = Button.createButton("Résoudre", panel, 700, 300);
-        resoudreButton.addActionListener(e -> {
-            // Lorsque le bouton "Résoudre" est cliqué, appeler la méthode BoutonEffacer sur l'instance de TableauSudoku
-            ResoudreBouton resoudreButton = new ResoudreBouton(tableauSudoku.getListeTxt(), tableauSudoku.getListeTxtGeneres(), tableauSudoku.getSudoku());
-            resoudreButton.boutonrésoudre();
+        resoudreButton.addActionListener(new ResoudreAction(this));
 
-            tempsLabel.setText("Temps de résolution : " + resoudreButton.getTempsRésolution() + " millisecondes");
-        });
 
     
 
@@ -130,4 +112,8 @@ public class FenetreJeux extends JFrame {
         ChargerGrilleVersFichier.chargerGrilleDepuisFichier(tableauSudoku);
         // Ajoutez ici le code pour informer l'utilisateur que le chargement est terminé, si nécessaire
     }   
+
+    public void setTime(ResoudreBouton btn){
+        tempsLabel.setText("Temps de résolution : " + btn.getTempsRésolution() + " millisecondes");
+    }
 }
