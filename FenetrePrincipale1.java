@@ -43,30 +43,10 @@ public class FenetrePrincipale1 extends JFrame {
         label.setForeground(Color.WHITE); // Texte en blanc pour contraster avec le fond
         label.setBounds(10, 10, 200, 30); // Position et taille du label
         panel.add(label);
+        
 
         JButton creerButton = Button.createButton("Créer", panel, 700, 200);
-        creerButton.addActionListener(e -> {
-            if (estadoCrear) {
-                // Si estadoCrear est true, alors masquer les boutons
-               
-                estadoCrear = false;
-                // Créez une instance de NettoyerTxt en lui passant les paramètres nécessaires
-                NettoyerTxt nettoyeurTxt = new NettoyerTxt(listeTxt, listeTxtGenerés, txtBackground1, txtForeground1, panelBackground);
-
-                // Appelez la méthode NettoyerTxt sur l'instance créée
-                nettoyeurTxt.NettoyerTxt();
-
-                creerButton.setText("Commencer");
-                
-            } else {
-                if (tableauSudoku.CreerPartieSudoku()) {
-                    estadoCrear = true;
-                    creerButton.setText("Créer");
-                    sauvegarderGrille();
-                }
-            }
-        });
-      
+        creerButton.addActionListener(new creerAction(this));
 
         tableauSudoku = new TableauSudoku();
         tableauSudoku.setHauteurTxt(36);
@@ -91,11 +71,48 @@ public class FenetrePrincipale1 extends JFrame {
         setVisible(true); // Rendre la fenêtre visible
     }
 
+
+    public JTextField[][] getListeTxt(){
+        return listeTxt;
+    }
+
+    public ArrayList<JTextField> getlisteTxtGenerés(){
+        return listeTxtGenerés;
+    }
+
+    public Color gettxtBackground1(){
+        return txtBackground1;
+    }
+    public Color gettxtForeground1(){
+        return txtForeground1;
+    }
+    public Color getpanelBackground(){
+        return panelBackground;
+    }
+
+    
+
+
+
+
+
+
+
+    public boolean getEstadocrear(){
+        return estadoCrear;
+    }
+    public void setEstadocrearTrue(){
+        estadoCrear = true;
+    }
+    public void setEstadocrearFalse(){
+        estadoCrear = false;
+    }
+
     public TableauSudoku getTableauSudoku() {
         return tableauSudoku;
     }
 
-    private void sauvegarderGrille() {
+    public void sauvegarderGrille() {
         SauvegarderGrilleVersFichier.sauvegarderGrilleVersFichier(tableauSudoku);
         // Ajoutez ici le code pour informer l'utilisateur que la sauvegarde est terminée, si nécessaire
     }

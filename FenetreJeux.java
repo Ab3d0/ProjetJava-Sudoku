@@ -126,7 +126,7 @@ public class FenetreJeux extends JFrame {
 
    
     // Méthode pour charger la grille
-    private void chargerGrille() {
+    public void chargerGrille() {
         ChargerGrilleVersFichier.chargerGrilleDepuisFichier(tableauSudoku);
         // Ajoutez ici le code pour informer l'utilisateur que le chargement est terminé, si nécessaire
     }   
