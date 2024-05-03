@@ -51,7 +51,7 @@ public class ChargerGrilleCreation {
 						}
 					}
 			
-					tableauSudoku.CreerPartieSudoku();
+					
 			
 					try {
 						file.close();		
