@@ -10,7 +10,6 @@ import java.io.DataOutputStream;
 
 public class SauvegarderGrilleVersFichier {
     public static void sauvegarderGrilleVersFichier(TableauSudoku tableauSudoku) {
-        System.out.println("ok");
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Choisir un emplacement de sauvegarde");
         fileChooser.setFileFilter(new FileNameExtensionFilter("Fichiers de grille Sudoku (*.gri)", "gri"));
@@ -33,9 +32,7 @@ public class SauvegarderGrilleVersFichier {
                 }
 		    }
 		    String numChaine = sb.toString();
-			System.out.println(numChaine);
 		    int n = Integer.parseInt(numChaine);
-			System.out.println(n);
 		    fichier.writeInt(n);
 		}
 

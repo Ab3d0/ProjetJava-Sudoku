@@ -37,7 +37,7 @@ public class ChargerGrilleVersFichier {
 			
 			
 						while(str.length() < 9){
-								StringBuilder sb = new StringBuilder(str);
+							StringBuilder sb = new StringBuilder(str);
 							sb.insert(0, '0');
 							str = sb.toString();
 						}
