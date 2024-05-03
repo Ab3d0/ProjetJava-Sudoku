@@ -16,6 +16,7 @@ public class FenetrePrincipale1 extends JFrame {
     private Color txtBackground1;
     private Color txtForeground1;
     private Color panelBackground;
+    private JButton chargerButton;
     // Déclaration en tant que membre de classe
 
     public FenetrePrincipale1() {
@@ -47,6 +48,9 @@ public class FenetrePrincipale1 extends JFrame {
 
         JButton creerButton = Button.createButton("Créer", panel, 700, 200);
         creerButton.addActionListener(new creerAction(this));
+        chargerButton = Button.createButton("Charger", panel, 700, 300);
+        chargerButton.addActionListener(new ChargerActionCreation(this));
+        
 
         tableauSudoku = new TableauSudoku();
         tableauSudoku.setHauteurTxt(36);
@@ -117,6 +121,10 @@ public class FenetrePrincipale1 extends JFrame {
         // Ajoutez ici le code pour informer l'utilisateur que la sauvegarde est terminée, si nécessaire
     }
     
+    public void chargerGrille() {
+        ChargerGrilleCreation.chargerGrilleCreation(tableauSudoku);
+        // Ajoutez ici le code pour informer l'utilisateur que le chargement est terminé, si nécessaire
+    }   
 
   
 }

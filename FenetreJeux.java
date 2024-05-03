@@ -53,9 +53,9 @@ public class FenetreJeux extends JFrame {
 
 
 
-          // Bouton pour charger la grille
-          chargerButton = Button.createButton("Charger", panel, 700, 200);
-          chargerButton.addActionListener(new ChargerAction(this));
+        // Bouton pour charger la grille
+        chargerButton = Button.createButton("Charger", panel, 700, 200);
+        chargerButton.addActionListener(new ChargerAction(this));
 
 
         // Initialiser le bouton verifierButton avant d'ajouter l'action listen

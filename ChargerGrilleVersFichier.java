@@ -1,4 +1,5 @@
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,53 +21,49 @@ public class ChargerGrilleVersFichier {
         if (userSelection == JFileChooser.APPROVE_OPTION) {
 	    
 	    
-	    
-	    
-            /*File fileToLoad = fileChooser.getSelectedFile(); */
-            try {
-		FileInputStream file = new FileInputStream(fileChooser.getSelectedFile());
-		DataInputStream fichier = new DataInputStream(file);
-		
-		JTextField[][] listeTxt = tableauSudoku.getListeTxt();
-		
-		for(int ligne = 0; ligne < 9; ligne++){
-		    int num = fichier.readInt();
-		    String str = Integer.toString(num);
-
-
-		    while(str.length() < 9){
-			StringBuilder sb = new StringBuilder(str);
-			sb.insert(0, '0');
-			str = sb.toString();
-		    }
-
-		    for(int i = 0; i < 9; i++){
-			if(str.charAt(i) == '0'){
-			    listeTxt[ligne][i].setText("");
+			if (!fileChooser.getSelectedFile().getName().endsWith(".gri")) {
+        		JOptionPane.showMessageDialog(null, "Veuillez choisir un fichier avec l'extension .gri.", "Erreur", JOptionPane.ERROR_MESSAGE);
 			} else {
-			    char c = str.charAt(i);
-			    String chiffre = Character.toString(c);
-			    listeTxt[ligne][i].setText(chiffre);
-			}
-		    }
-		}
-
-		tableauSudoku.CreerPartieSudoku();
-
-		
-
-
-		
-		try {
-		    file.close();
-		    
-		    
-		} catch (IOException e){
-		    System.out.println("Erreur de fermeture du fichier");
-		}
-            } catch (IOException e) {
-		System.out.println("Erreur d'ouverture du fichier");
-	    }
+				/*File fileToLoad = fileChooser.getSelectedFile(); */
+				try {
+					FileInputStream file = new FileInputStream(fileChooser.getSelectedFile());
+					DataInputStream fichier = new DataInputStream(file);
+					
+					JTextField[][] listeTxt = tableauSudoku.getListeTxt();
+					
+					for(int ligne = 0; ligne < 9; ligne++){
+						int num = fichier.readInt();
+						String str = Integer.toString(num);
+			
+			
+						while(str.length() < 9){
+								StringBuilder sb = new StringBuilder(str);
+							sb.insert(0, '0');
+							str = sb.toString();
+						}
+			
+						for(int i = 0; i < 9; i++){
+							if(str.charAt(i) == '0'){
+								listeTxt[ligne][i].setText("");
+							} else {
+								char c = str.charAt(i);
+								String chiffre = Character.toString(c);
+								listeTxt[ligne][i].setText(chiffre);
+							}
+						}
+					}
+			
+					tableauSudoku.CreerPartieSudoku();
+			
+					try {
+						file.close();		
+					} catch (IOException e){
+						System.out.println("Erreur de fermeture du fichier");
+					}
+				} catch (IOException e) {
+					System.out.println("Erreur d'ouverture du fichier");
+				}
+			}    
         }
     }
 }
