@@ -39,7 +39,7 @@ make clean
 ```
 ## Rapport
 Vous pouvez consulter le rapport complet du projet ici :  
-[📄 Rapport du projet](./rapport.pdf)
+[📄 Rapport du projet](./PDF_Sudoku-SAE21_2023.pdf)
 
 
 
