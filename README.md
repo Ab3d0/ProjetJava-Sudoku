@@ -46,5 +46,4 @@ Vous pouvez consulter le rapport complet du projet ici :
 ## Crédits 🚀
  -   Programme réalisé par Abed Bridja et Christopher Dubreuil 
 
-## Note
-19.50/20
+
